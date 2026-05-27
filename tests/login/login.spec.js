@@ -31,17 +31,14 @@ test.describe('Login Tests', () => {
     await expect(inventoryItems).not.toHaveCount(0);
   });
 
-  test('Login fallido con locked_out_user desde .env', async ({ page }) => {
+  test('Login fallido con locked_out_user', async ({ page }) => {
     // 1. Navegar a la página de login
     await page.goto('/');
 
     // 2. Obtener credenciales del archivo .env
-    const username = process.env.LOCKED_USER_USERNAME;
-    const password = process.env.LOCKED_USER_PASSWORD;
+    const { username, password } = testData.usuarios.locked;
 
     // Verificar que las variables de entorno están definidas
-    expect(username).toBeDefined();
-    expect(password).toBeDefined();
 
     // 3. Completar credenciales del usuario locked
     await page.fill('#user-name', username);
